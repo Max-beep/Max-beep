@@ -22,12 +22,19 @@
 
     h1 {
       font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: clamp(1.4rem, 4.5vw, 2rem);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+    }
+
+    #customMessage {
+      display: none;
+      font-size: clamp(1.3rem, 4vw, 1.7rem);
+      color: #7a1f2b;
+      margin-bottom: 12px;
     }
 
     .note {
@@ -73,13 +80,6 @@
       z-index: 1;
     }
 
-    #customMessage {
-      display: none;
-      font-size: clamp(1.2rem, 4vw, 1.6rem);
-      margin-bottom: 10px;
-      color: #7a1f2b;
-    }
-
     .footer-note {
       position: absolute;
       bottom: 20px;
@@ -93,11 +93,11 @@
 
   <h1 id="title">Hey ❤️</h1>
 
-  <!-- Custom message from buyer (optional) -->
+  <!-- Custom message (optional) -->
   <p id="customMessage"></p>
 
-  <!-- Always visible main question -->
-  <p id="message">Will you be my Valentine?</p>
+  <!-- Main question NEVER changes -->
+  <p id="mainQuestion">Will you be my Valentine?</p>
 
   <div class="note">✨ No pressure… but also yes pressure ✨</div>
   <div class="note">💌 Carefully consider your answer</div>
@@ -114,27 +114,27 @@
 
   <script>
     // ----------------------------
-    // URL PARAMS (name + message)
+    // READ URL PARAMETERS
     // ----------------------------
     const params = new URLSearchParams(window.location.search);
 
-    const nameFromUrl = params.get("name");
-    const messageFromUrl = params.get("msg");
+    const name = params.get("name");
+    const msg = params.get("msg");
 
     const titleEl = document.getElementById("title");
     const customMessageEl = document.getElementById("customMessage");
 
-    if (nameFromUrl) {
-      titleEl.textContent = `Hey ${nameFromUrl} ❤️`;
+    if (name) {
+      titleEl.textContent = "Hey " + name + " ❤️";
     }
 
-    if (messageFromUrl) {
-      customMessageEl.textContent = messageFromUrl;
+    if (msg) {
+      customMessageEl.textContent = msg;
       customMessageEl.style.display = "block";
     }
 
     // ----------------------------
-    // NO BUTTON ESCAPE LOGIC
+    // NO BUTTON ESCAPES
     // ----------------------------
     const noBtn = document.getElementById("no");
     const container = document.getElementById("container");
@@ -166,4 +166,10 @@
       document.body.innerHTML = `
         <h1>YAY!!! 🥰</h1>
         <p>Best decision you’ve made all day 💖</p>
-        <p class="note">💘 Valentine status: CONFIRMED 💘</p
+        <p>💘 Valentine status: CONFIRMED 💘</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
