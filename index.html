@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine’s Invite 💖</title>
+  <title>Catch My Heart 💖</title>
+
   <style>
     body {
       min-height: 100vh;
@@ -21,18 +22,18 @@
 
     h1 {
       font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     p {
       font-size: clamp(1.4rem, 4.5vw, 2rem);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .note {
       font-size: clamp(1rem, 3.5vw, 1.3rem);
       color: #7a1f2b;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       opacity: 0.9;
     }
 
@@ -61,7 +62,7 @@
       background-color: #ff4d6d;
       color: white;
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      z-index: 1;
+      z-index: 2;
     }
 
     #no {
@@ -69,6 +70,14 @@
       top: 50%;
       transform: translateY(-50%);
       background-color: #e0e0e0;
+      z-index: 1;
+    }
+
+    #customMessage {
+      display: none;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      margin-bottom: 10px;
+      color: #7a1f2b;
     }
 
     .footer-note {
@@ -79,15 +88,16 @@
     }
   </style>
 </head>
+
 <body>
 
-<h1 id="title">Hey ❤️</h1>
+  <h1 id="title">Hey ❤️</h1>
 
-<p id="customMessage" style="display:none; font-size:1.3rem; margin-bottom:12px;">
-</p>
+  <!-- Custom message from buyer (optional) -->
+  <p id="customMessage"></p>
 
-<p id="message">Will you be my Valentine?</p>
-
+  <!-- Always visible main question -->
+  <p id="message">Will you be my Valentine?</p>
 
   <div class="note">✨ No pressure… but also yes pressure ✨</div>
   <div class="note">💌 Carefully consider your answer</div>
@@ -98,25 +108,34 @@
     <button id="no">No 🙃</button>
   </div>
 
-  <div class="footer-note">Made with questionable ethics but good intentions 💖</div>
+  <div class="footer-note">
+    Made with questionable ethics but good intentions 💖
+  </div>
 
   <script>
-      // ---- URL PARAMS ----
-      const params = new URLSearchParams(window.location.search);
+    // ----------------------------
+    // URL PARAMS (name + message)
+    // ----------------------------
+    const params = new URLSearchParams(window.location.search);
 
-      const nameFromUrl = params.get("name");
-      const messageFromUrl = params.get("msg");
+    const nameFromUrl = params.get("name");
+    const messageFromUrl = params.get("msg");
 
-      const titleEl = document.getElementById("title");
-      const messageEl = document.getElementById("message");
+    const titleEl = document.getElementById("title");
+    const customMessageEl = document.getElementById("customMessage");
 
-      if (nameFromUrl) {
-        titleEl.textContent = `Hey ${nameFromUrl} ❤️`;
-      }
+    if (nameFromUrl) {
+      titleEl.textContent = `Hey ${nameFromUrl} ❤️`;
+    }
 
-      if (messageFromUrl) {
-        messageEl.textContent = messageFromUrl;
-      }
+    if (messageFromUrl) {
+      customMessageEl.textContent = messageFromUrl;
+      customMessageEl.style.display = "block";
+    }
+
+    // ----------------------------
+    // NO BUTTON ESCAPE LOGIC
+    // ----------------------------
     const noBtn = document.getElementById("no");
     const container = document.getElementById("container");
 
@@ -140,14 +159,11 @@
       moveNo();
     });
 
+    // ----------------------------
+    // YES BUTTON
+    // ----------------------------
     function yesClicked() {
       document.body.innerHTML = `
         <h1>YAY!!! 🥰</h1>
         <p>Best decision you’ve made all day 💖</p>
-        <div class="note">💘 Valentine status: CONFIRMED 💘</div>
-      `;
-    }
-  </script>
-
-</body>
-</html>
+        <p class="note">💘 Valentine status: CONFIRMED 💘</p
